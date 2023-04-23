@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+          }
+          
+          h1 {
+            text-align: center;
+            color: #333;
+          }
+          
+          #leaderboard {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+          }
+          
+          #leaderboard li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+          }
+          
+          #leaderboard li:nth-child(odd) {
+            background-color: #f9f9f9;
+          }
+          
+          #leaderboard li:first-child {
+            font-weight: bold;
+          }
+          
+          #leaderboard li span {
+            font-weight: bold;
+          }
+          
+    </style>
+  </head>
+  <body>
+    <h1>Leaderboard</h1>
+    <ul id="leaderboard"></ul>
+    <script>
+        const leaderboard = document.getElementById('leaderboard');
+
+// Retrieve the leaderboard from the database and display it in the page
+fetch('/leaderboard')
+  .then(response => response.json())
+  .then(data => {
+    leaderboard.innerHTML = '';
+    leaderboard.appendChild(createLeaderboardHeader());
+    data.forEach(user => {
+      leaderboard.appendChild(createLeaderboardItem(user));
+    });
+  })
+  .catch(error => console.error(error));
+
+// Create the header row for the leaderboard
+function createLeaderboardHeader() {
+  const header = document.createElement('li');
+  const rank = document.createElement('span');
+  rank.textContent = 'Rank';
+  const name = document.createElement('span');
+  name.textContent = 'Name';
+  const score = document.createElement('span');
+  score.textContent = 'Score';
+  header.appendChild(rank);
+  header.appendChild(name);
+  header.appendChild(score);
+  return header;
+}
+
+// Create a row for a user in the leaderboard
+function createLeaderboardItem(user) {
+  const item = document.createElement('li');
+  const rank = document.createElement('span');
+  rank.textContent = user.rank;
+  const name = document.createElement('span');
+  name.textContent = user.name;
+  const score = document.createElement('span');
+  score.textContent = user.score;
+  item.appendChild(rank);
+  item.appendChild(name);
+  item.appendChild(score);
+  return item;
+}
+
+    </script>
+  </body>
+</html>
