@@ -45,7 +45,7 @@ This website analyses the soft skills of the user in a fun way.This is a user-fr
 Clone the project
 
 bash
-  git clone 
+  git clone https://github.com/pikachu0291/mihir-.git
 
 
 Go to the project directory (login is the name of the project directory)
